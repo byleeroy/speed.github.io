@@ -44,48 +44,6 @@ $(function() {
 			if(CalcSpeed > 999) {
 				CalcSpeed = 999;
 			}
-
-			window.addEventListener('message', function(event) {
-				const data = event.data;
-			
-				if (data.type === "updateSpeedometer") {
-					const speed = Math.floor(data.speed);
-					const gear = data.gear;
-					const rpm = parseFloat(data.rpm); // 0.0 to 1.0 expected
-			
-					// Set Gear
-					$(".geardisplay span").first().text(gear);
-			
-					// Speed digits
-					const speedStr = speed.toString().padStart(3, '0');
-					$(".int1").text(speedStr[0]);
-					$(".int2").text(speedStr[1]);
-					$(".int3").text(speedStr[2]);
-			
-					// Change color based on speed
-					let speedColor = "#00ff00"; // Green
-					if (speed > 30 && speed <= 100) {
-						speedColor = "#ffff00"; // Yellow
-					} else if (speed > 100) {
-						speedColor = "#ff0000"; // Red
-					}
-					$(".speeddisplay span").css("color", speedColor);
-			
-					// RPM bar update
-					const percent = Math.min(Math.max(rpm, 0), 1) * 100;
-					$(".rpm").css("width", percent + "%");
-			
-					// Optional: change gradient based on rpm level
-					if (percent < 50) {
-						$(".rpm").css("background", "linear-gradient(to right, #00ff00, #ffff00)");
-					} else if (percent < 80) {
-						$(".rpm").css("background", "linear-gradient(to right, #ffff00, #ffa500)");
-					} else {
-						$(".rpm").css("background", "linear-gradient(to right, #ffa500, #ff0000)");
-					}
-				}
-			});
-			
 			
 			// Vehicle Gear display
 			if(s_Gear == 0) {
